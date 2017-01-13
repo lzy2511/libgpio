@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.67])
-AC_INIT([libgpio], [3.0.0], [manut@linutronix.de])
+AC_INIT([libgpio], [3.0.0], [544088192@qq.com])
 AM_INIT_AUTOMAKE([silent-rules color-tests])
 AC_USE_SYSTEM_EXTENSIONS
 AC_GNU_SOURCE
@@ -19,8 +19,8 @@ AC_PROG_CXX
 AM_PROG_CC_C_O
 
 # Checks for libraries.
-PKG_CHECK_MODULES([LIBCONFIG], [libconfig >= 1.4],,
-  AC_MSG_ERROR([libconfig 1.4 or newer not found.])
+PKG_CHECK_MODULES([LIBCONFIG], [libconfig >= 1.3],,
+  AC_MSG_ERROR([libconfig 1.3 or newer not found.])
 )
 
 # Checks for header files.

@@ -12,61 +12,101 @@
 extern "C" {
 #endif
 
-#include <libconfig.h>
+#define GPIO_TO_PIN(bank, gpio) (32 * (bank) + (gpio))
 
 typedef enum _gpio_direction {
 	GPIO_IN,
 	GPIO_OUT,
-} gpio_direction;
+} gpio_direction_e;
 
 typedef enum _gpio_value {
 	GPIO_LOW = 0,
 	GPIO_HIGH = 1,
-} gpio_value;
+} gpio_value_e;
 
 typedef enum _gpio_irq_mode {
 	GPIO_NONE,
 	GPIO_RISING,
 	GPIO_FALLING,
 	GPIO_BOTH,
-} gpio_irq_mode;
+} gpio_irq_mode_e;
+/* lorawan use */
+/**
+ * @brief 设置gpio口为输入模式
+ *
+ * @param gpio
+ *
+ * @return 
+ */
+int gpio_direction_input(unsigned int gpio);
+/**
+ * @brief 设置gpio口为输出模式
+ *
+ * @param gpio
+ * @param value
+ *
+ * @return 
+ */
+int gpio_direction_output(unsigned int gpio, int value);
 
-typedef enum _gpio_status {
-	GPIO_INVALID = 0,
-	GPIO_VALID = 1,
-} gpio_status;
+/**
+ * @brief 设置gpio口的值
+ *
+ * @param pin
+ * @param value
+ *
+ * @return 
+ */
+int gpio_set_value (unsigned int gpio, int value);
+/**
+ * @brief  获取gpio的值
+ *
+ * @param gpio
+ *
+ * @return 
+ */
+int gpio_get_value (unsigned int gpio);
 
-typedef struct _gpio_pin {
-	unsigned int no;
-	gpio_direction direction;
-	gpio_irq_mode irq_mode;
-	int fd;
-	gpio_status valid;
-} gpio_pin;
-
-static config_t cfg = {
-	.root = NULL,
-};
-
-int gpio_open (gpio_pin *pin, unsigned int no);
-int gpio_open_by_name (gpio_pin *pin, const char *name);
-int gpio_open_dir (gpio_pin *pin, unsigned int no, gpio_direction dir);
-int gpio_open_by_name_dir (gpio_pin *pin, const char *name, gpio_direction dir);
-
-int gpio_close (gpio_pin *pin);
-void gpio_destroy (void);
-
-int gpio_out (gpio_pin *pin);
-int gpio_in (gpio_pin *pin);
-
-int gpio_set_value (gpio_pin *pin, gpio_value value);
-int gpio_get_value (gpio_pin *pin, gpio_value *value);
-
-int gpio_enable_irq (gpio_pin *pin, gpio_irq_mode m);
-int gpio_irq_wait (gpio_pin *pin, gpio_value *value);
-int gpio_irq_timed_wait (gpio_pin *pin, gpio_value *value, int timeout_ms);
-
-int gpio_get_fd (gpio_pin *pin);
+/**
+ * @brief 导出gpio到用户空间
+ *
+ * @param gpio
+ *
+ * @return 
+ */
+int gpio_export(unsigned gpio);
+/**
+ * @brief 撤销导出到用户空间的gpio
+ */
+void gpio_unexport(unsigned gpio); 
+/**
+ * @brief 
+ *
+ * @param gpio
+ * @param m
+ *
+ * @return 
+ */
+int gpio_enable_irq (unsigned int gpio, gpio_irq_mode_e m);
+/**
+ * @brief 
+ *
+ * @param gpio
+ * @param value
+ *
+ * @return 
+ */
+int gpio_irq_wait (unsigned int gpio, int *value);
+/**
+ * @brief 
+ *
+ * @param pin
+ * @param value
+ * @param timeout_ms
+ *
+ * @return 
+ */
+int gpio_irq_timed_wait (unsigned int gpio, int *value, int timeout_ms);
 
 #ifdef __cplusplus
 }

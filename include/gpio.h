@@ -1,6 +1,6 @@
 /* libgpio
  *
- * Copyright 2012 Manuel Traut <manut@linutronix.de>
+ * Copyright 2012 Manuel Traut <544088192@qq.com>
  *
  * LGPL licensed
  */

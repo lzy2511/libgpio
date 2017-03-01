@@ -3,7 +3,7 @@ libgpio
 
 libgpio can be used to ease the access of GPIOs via Linux / sysfs.
 
-build
+build  
 ^^^^^
-1. make
-2. make install
+1. make  
+2. make install  

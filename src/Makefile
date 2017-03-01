@@ -19,6 +19,7 @@ CFLAGS+=$(INC)
 LDFLAGS+=$(LD)
 
 lib:gpio.o 
+	-@mkdir -p ../lib
 	$(Q)$(AR) rucs ../lib/libgpio.a $^ 
 	@$(E) "  AR " $<
 	$(Q)$(CC) -shared -fPIC -o ../lib/libgpio.so $^

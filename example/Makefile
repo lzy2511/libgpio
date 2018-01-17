@@ -13,7 +13,7 @@ include ../env.mk
 
 INC+= -I../include
 
-LD:= -L../lib -lgpio
+LD:= -L../lib -lgpio -lpthread
 
 CFLAGS+=$(INC)
 LDFLAGS+=$(LD)

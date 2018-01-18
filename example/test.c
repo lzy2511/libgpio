@@ -94,6 +94,15 @@ int main (int argc, char **argv)
         gpio_irq_enable();
         
         sleep(5);
+
+        printf("\n\n\n");
+        printf("-------test unreg irq pin%d and irq pin%d:\n", LORA_GPIO_TEST2, LORA_GPIO_TEST3);
+        gpio_irq_disable();
+        gpio_irq_unregister(LORA_GPIO_TEST2);
+        gpio_irq_unregister(LORA_GPIO_TEST3);
+        gpio_irq_enable();
+        
+        sleep(5);
     }
 	return ret;
 err:

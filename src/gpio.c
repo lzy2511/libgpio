@@ -193,10 +193,13 @@ void *gpio_irq_thread (void *arg)
             close (irq_desc[i].fd);
             debug ("gpio_irq_thread release gpio: fd=%d, gpio=%d!\n", irq_desc[i].fd, irq_info[i].gpio);
 
-            irq_info[i].gpio = 0;
-            irq_info[i].flag = 0;
-            irq_info[i].fd = 0;
-            irq_info[i].hander = NULL;
+            //init unregister info
+            if(irq_info[i].flag == 0)
+            {
+                irq_info[i].gpio = 0;
+                irq_info[i].fd = 0;
+                irq_info[i].hander = NULL;
+            }
             
             irq_desc[i].events = 0;
             irq_desc[i].fd = -1;
